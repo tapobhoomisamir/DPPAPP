@@ -1,0 +1,43 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      HomePage
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<!-- <ion-content [fullscreen]="true"> -->
+  <ion-content>
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large"></ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-list>
+    <div *ngFor="let item of combinedList">
+    <!-- Important news template -->
+    <div *ngIf="item.type === 'important'" class="important-news" (click)="openLink(item.link)">
+      <img [src]="item.image" alt="important news image" class="important-news-img">
+      <div class="important-news-overlay">
+        <h2>{{ item.title }}</h2>
+        <p>{{ item.short }}</p>
+        <p class="news-date">{{ item.date }}</p>
+      </div>
+    </div>
+    <!-- Media/news template -->
+    <ion-item *ngIf="item.type === 'media'" button (click)="openLink(item.link)" class="media-item">
+      <ion-avatar slot="start" class="media-avatar">
+        <img [src]="item.image" alt="event image">
+      </ion-avatar>
+      <ion-label class="media-label">
+        <h2>{{ item.title }}</h2>
+        <p class="media-desc">{{ item.description }}</p>
+        <p class="media-short" *ngIf="item.short">{{ item.short }}</p>
+        <p class="news-date">{{ item.date }}</p>
+      </ion-label>
+    </ion-item>
+  </div>
+  </ion-list>
+
+</ion-content>

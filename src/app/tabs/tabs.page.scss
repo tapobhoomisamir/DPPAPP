@@ -1,0 +1,28 @@
+
+ion-header.header {
+  border-bottom: 3px solid #ffd699; // light orange
+}
+
+.app-title {
+  font-size: 20px;
+  font-weight: bold;
+  color: rgb(255, 119, 0);
+}
+
+.subtitle {
+  font-size: 14px;
+  color: gray;
+}
+
+.premium-btn{
+    --background: linear-gradient(90deg, rgb(255, 119, 0) 0%, #f2cb49 100%);
+    --color: white;
+    font-weight: bold;
+    font-size: 12px;
+    text-transform: none; 
+}
+
+.premium-btn:active,
+.premium-btn.ion-activated {
+    --background: rgb(255, 119, 0);
+}
