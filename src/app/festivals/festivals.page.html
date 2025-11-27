@@ -13,20 +13,32 @@
     </ion-toolbar>
   </ion-header>
 
+  <!-- Year Dropdown -->
+  <div class="year-dropdown">
+    <ion-label>Year:</ion-label>
+    <ion-select [(ngModel)]="selectedYear" interface="popover">
+      <ion-select-option *ngFor="let y of years" [value]="y">{{ y }}</ion-select-option>
+    </ion-select>
+  </div>
+
   <ion-list>
-    <div *ngFor="let item of combinedList">
-      <!-- Important news template -->
-      <ion-item  class="media-item">
-      <ion-avatar slot="start" class="media-avatar">
-        <img [src]="item.image" alt="event image">
-      </ion-avatar>
-      <ion-label class="media-label">
-        <h2>{{ item.title }}</h2>
-        <p class="media-desc">{{ item.description }}</p>
-        <p class="media-short" *ngIf="item.short">{{ item.short }}</p>
-        <p class="news-date">{{ item.date }}</p>
-      </ion-label>
-    </ion-item>
+    <div *ngFor="let item of filteredList; let i = index">
+      <ion-item class="media-item" (click)="toggleExpand(i)">
+        <div class="date-avatar">
+          <div class="date-day">{{ item.day }}</div>
+          <div class="date-num">{{ item.dateNum }}</div>
+          <div class="date-month">{{ item.monthShort }}</div>
+        </div>
+        <ion-label class="media-label">
+          <h2>{{ item.title }}</h2>
+          <p 
+            class="media-desc" 
+            [class.expanded]="item.expanded">
+            {{ item.description }}
+          </p>
+          <p class="media-short" *ngIf="item.short">{{ item.short }}</p>
+        </ion-label>
+      </ion-item>
     </div>
   </ion-list>
 </ion-content>

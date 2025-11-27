@@ -7,6 +7,7 @@ import { ExploreContainerComponentModule } from '../explore-container/explore-co
 
 import { FestivalsPageRoutingModule } from './festivals-routing.module';
 
+
 @NgModule({
   imports: [
     IonicModule,
