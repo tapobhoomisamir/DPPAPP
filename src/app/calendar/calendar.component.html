@@ -24,10 +24,14 @@
       </div>
       <div class="weeks">
         <div class="week" *ngFor="let week of weeks">
-          <div *ngFor="let d of week" class="day" [class.blank]="!d.date">
+          <div *ngFor="let d of week"
+              class="day"
+              [class.blank]="!d.date"
+              [class.today]="isToday(d)"
+              (click)="d.date ? openDayDetails(d) : null">
             <span *ngIf="d.date" class="date">{{ d.date }}</span>
-            <span class="event-small" *ngIf="!d.badge">{{ d.label }}</span>
-            <span class="event-badge" *ngIf="d.badge">{{ d.label }}</span>
+            <!-- <span class="event-small" *ngIf="!d.badge">{{ d.label }}</span>
+            <span class="event-badge" *ngIf="d.badge">{{ d.label }}</span> -->
           </div>
         </div>
       </div>

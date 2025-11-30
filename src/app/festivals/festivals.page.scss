@@ -84,20 +84,21 @@
   color: #ff7700;
   margin-top: 2px;
 }
-
 .year-dropdown {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 24px 0 16px 0;
+  flex-direction: row;      /* label + dropdown side-by-side */
+  align-items: center;      /* vertically centered */
+  justify-content: center;  /* center the pair horizontally */
+  gap: 12px;                /* spacing between label & dropdown */
+  padding: 20px 0 16px 10px;
+  width: 100%;              /* ensures centered alignment */
 }
 
 .year-dropdown ion-label {
   font-size: 18px;
   font-weight: 600;
-  margin-bottom: 8px;
   color: #ff7700;
+  margin: 0;                /* remove bottom margin */
 }
 
 .year-dropdown ion-select {

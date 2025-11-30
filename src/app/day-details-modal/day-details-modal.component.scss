@@ -1,0 +1,26 @@
+.modal-container {
+  margin: 10px;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  color: rgb(255, 119, 0);
+}
+
+.good {
+  color: green;
+  font-weight: bold;
+}
+
+.bad {
+  color: red;
+  font-weight: bold;
+}
+
+.auspicious {
+  color: orange;
+  font-weight: bold;
+}

@@ -7,7 +7,9 @@ import { TabsPageRoutingModule } from './tabs-routing.module';
 
 import { TabsPage } from './tabs.page';
 import { CalendarComponent } from '../calendar/calendar.component'; // <-- Add this import
+import { DayDetailsModalComponent } from '../day-details-modal/day-details-modal.component';
 
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 
 @NgModule({
@@ -16,10 +18,12 @@ import { CalendarComponent } from '../calendar/calendar.component'; // <-- Add t
     CommonModule,
     FormsModule,
     TabsPageRoutingModule,
-    CalendarComponent
+    CalendarComponent,
+    DayDetailsModalComponent,
   ],
   declarations: [
     TabsPage
-  ]
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA] 
 })
 export class TabsPageModule {}

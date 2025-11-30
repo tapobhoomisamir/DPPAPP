@@ -7,20 +7,20 @@
 </ion-header>
 
 <!-- <ion-content [fullscreen]="true"> -->
-  <ion-content>
-  <ion-header collapse="condense">
+  <ion-content [fullscreen]="true">
+  <ion-header collapse="condense" style="margin-top:10px;">
     <ion-toolbar>
       <ion-title size="large"></ion-title>
     </ion-toolbar>
   </ion-header>
 
   <ion-list>
-    <div *ngFor="let item of combinedList">
+    <div *ngFor="let item of mediaList">
     <!-- Important news template -->
     <div *ngIf="item.type === 'important'" class="important-news" (click)="openLink(item.link)">
       <img [src]="item.image" alt="important news image" class="important-news-img">
       <div class="important-news-overlay">
-        <h2>{{ item.title }}</h2>
+        <div class="media-title">{{ item.title }}</div>
         <p>{{ item.short }}</p>
         <p class="news-date">{{ item.date }}</p>
       </div>
@@ -31,7 +31,7 @@
         <img [src]="item.image" alt="event image">
       </ion-avatar>
       <ion-label class="media-label">
-        <h2>{{ item.title }}</h2>
+        <div class="media-title">{{ item.title }}</div>
         <p class="media-desc">{{ item.description }}</p>
         <p class="media-short" *ngIf="item.short">{{ item.short }}</p>
         <p class="news-date">{{ item.date }}</p>
@@ -39,5 +39,6 @@
     </ion-item>
   </div>
   </ion-list>
+  <div style="margin-bottom:50px"></div>
 
 </ion-content>

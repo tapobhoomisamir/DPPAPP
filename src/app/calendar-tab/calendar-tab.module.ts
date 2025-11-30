@@ -7,7 +7,9 @@ import { ExploreContainerComponentModule } from '../explore-container/explore-co
 
 import { Tab1PageRoutingModule } from './calendar-tab-routing.module';
 import { CalendarComponent } from '../calendar/calendar.component';
+import { DayDetailsModalComponent } from '../day-details-modal/day-details-modal.component';
 
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 @NgModule({
   imports: [
@@ -17,7 +19,9 @@ import { CalendarComponent } from '../calendar/calendar.component';
     ExploreContainerComponentModule,
     Tab1PageRoutingModule,
     CalendarComponent,
+    DayDetailsModalComponent
   ],
-  declarations: [CalendarPage]
+  declarations: [CalendarPage],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA] 
 })
 export class CalendarPageModule {}

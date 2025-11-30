@@ -1,0 +1,53 @@
+<ion-content class="modal-container">
+
+  <div class="modal-header">
+    <h2>{{ fullData.tithi }} - {{ date }}</h2>
+    <ion-button fill="clear" (click)="close()">
+      <ion-icon name="close-outline"></ion-icon>
+    </ion-button>
+  </div>
+
+  <ion-list>
+
+    <ion-item>
+      <ion-label>Sunrise</ion-label>
+      <ion-note>{{ fullData.sunrise }}</ion-note>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Sunset</ion-label>
+      <ion-note>{{ fullData.sunset }}</ion-note>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Moonrise</ion-label>
+      <ion-note>{{ fullData.moonrise }}</ion-note>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Moonset</ion-label>
+      <ion-note>{{ fullData.moonset }}</ion-note>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Panchang</ion-label>
+      <ion-note>{{ fullData.panchang }}</ion-note>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Day Rating</ion-label>
+      <ion-note [ngClass]="fullData.dayRating.toLowerCase()">
+        {{ fullData.dayRating }}
+      </ion-note>
+    </ion-item>
+
+    <ion-item *ngIf="fullData.festival">
+      <ion-label>Festival</ion-label>
+      <ion-button fill="outline" (click)="openFestival(fullData.festivalId)">
+        {{ fullData.festival }}
+      </ion-button>
+    </ion-item>
+
+  </ion-list>
+
+</ion-content>

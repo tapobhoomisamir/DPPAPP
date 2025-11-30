@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 
+import { ModalController } from '@ionic/angular';
+import { DayDetailsModalComponent } from '../day-details-modal/day-details-modal.component';
+
 @Component({
   selector: 'app-calendar',
   standalone: true,
@@ -34,7 +37,7 @@ export class CalendarComponent {
   ];
 
 
-  constructor() {
+  constructor(private modalCtrl: ModalController) {
     const today = new Date();
     this.month = today.getMonth();
     this.year = today.getFullYear();
@@ -83,4 +86,46 @@ export class CalendarComponent {
     }
     this.generateCalendar(this.month, this.year);
   }
+
+  async openDayDetails(day: any) {
+    const modal = await this.modalCtrl.create({
+      component: DayDetailsModalComponent,
+      componentProps: {
+        date: day.date,
+        fullData: this.getDayData(day)
+      },
+      breakpoints: [0, 0.5, 0.9],
+      initialBreakpoint: 0.5
+    });
+
+    return modal.present();
+  }
+
+  getDayData(day: any) {
+      return {
+        sunrise: "06:32 AM",
+        sunset: "06:01 PM",
+        moonrise: "07:42 PM",
+        moonset: "06:10 AM",
+        tithi: "Chaturthi",
+        panchang: "Shubh",
+        dayRating: "Auspicious",
+        festival: "Karwa Chauth",
+        festivalId: 22
+      };
+    }
+
+    isToday(d: any): boolean {
+      if (!d.date) return false;
+
+      const today = new Date();
+      
+      return (
+        d.date === today.getDate() &&
+        this.month === today.getMonth() &&
+        this.year === today.getFullYear()
+      );
+    }
+
+
 }
