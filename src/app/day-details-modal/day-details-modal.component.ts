@@ -20,6 +20,8 @@ import { IonicModule } from '@ionic/angular';
 export class DayDetailsModalComponent {
 
   @Input() date: any;
+  @Input() month: any;
+  @Input() year: any;
   @Input() fullData: any;
 
   constructor(
@@ -33,6 +35,6 @@ export class DayDetailsModalComponent {
 
   openFestival(id: number) {
     this.close();
-    this.router.navigate(['https://test/festival-details', id]);
+    this.router.navigate(['../festival-details', id]);
   }
 }

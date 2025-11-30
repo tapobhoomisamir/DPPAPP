@@ -22,13 +22,6 @@
   padding: 10px;
 }
 
-.days {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 10px;
-  padding: 10px;
-}
-
 /* wrapper that defines the square using padding-top */
 .day {
   position: relative;
@@ -37,6 +30,7 @@
   border-radius: 10px;
   overflow: hidden;
   box-sizing: border-box;
+  flex-direction: column; 
 }
 
 /* create square box using pseudo element */
@@ -109,4 +103,37 @@
 
 .calendar-grid{
   margin: 10px;
+}
+
+.calendar-grid,
+.month-header {
+  transition: transform 0.25s ease-out;
+}
+
+.swipe-left {
+  transform: translateX(-50px);
+  opacity: 0.8;
+}
+
+.swipe-right {
+  transform: translateX(50px);
+  opacity: 0.8;
+}
+
+.day.festival {
+  background-color: #ffe9c9;
+  border: 2px solid #ff8800;
+  border-radius: 10px !important;
+}
+
+/* Base festival highlight */
+.festival-day .date {
+  color: #ff3b30 !important;
+  font-weight: 700;
+}
+
+/* If today is also a festival */
+.festival-day.today .date {
+  color: #ff3b30 !important;
+  background: transparent !important;
 }

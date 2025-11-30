@@ -1,39 +1,42 @@
 
-
 <ion-content>
-
-  <!-- Month Header -->
-    <div class="month-header">
-      <h2>{{ monthNames[month] }} {{ year }}</h2>
-      <div class="nav-buttons">
-        <ion-button fill="clear" class="arrow-btn" (click)="prevMonth()">
-          <ion-icon name="chevron-back-outline"></ion-icon>
-        </ion-button>
-        <ion-button fill="clear" class="arrow-btn" (click)="nextMonth()">
-          <ion-icon name="chevron-forward-outline"></ion-icon>
-        </ion-button>
+  <div #calendarContainer> 
+    <!-- Month Header -->
+      <div class="month-header">
+        <h2>{{ monthNames[month] }} {{ year }}</h2>
+        <div class="nav-buttons">
+          <ion-button fill="clear" class="arrow-btn" (click)="prevMonth()">
+            <ion-icon name="chevron-back-outline"></ion-icon>
+          </ion-button>
+          <ion-button fill="clear" class="arrow-btn" (click)="nextMonth()">
+            <ion-icon name="chevron-forward-outline"></ion-icon>
+          </ion-button>
+        </div>
       </div>
-    </div>
 
-    <!-- Calendar Grid -->
-    <div class="calendar-grid">
-      <div class="weekdays">
-        <div>Sun</div><div>Mon</div><div>Tue</div>
-        <div>Wed</div><div>Thu</div><div>Fri</div>
-        <div>Sat</div>
-      </div>
-      <div class="weeks">
-        <div class="week" *ngFor="let week of weeks">
-          <div *ngFor="let d of week"
-              class="day"
-              [class.blank]="!d.date"
-              [class.today]="isToday(d)"
-              (click)="d.date ? openDayDetails(d) : null">
-            <span *ngIf="d.date" class="date">{{ d.date }}</span>
-            <!-- <span class="event-small" *ngIf="!d.badge">{{ d.label }}</span>
-            <span class="event-badge" *ngIf="d.badge">{{ d.label }}</span> -->
+      <!-- Calendar Grid -->
+      <div class="calendar-grid">
+        <div class="weekdays">
+          <div>Sun</div><div>Mon</div><div>Tue</div>
+          <div>Wed</div><div>Thu</div><div>Fri</div>
+          <div>Sat</div>
+        </div>
+        <div class="weeks">
+          <div class="week" *ngFor="let week of weeks">
+            <div *ngFor="let d of week"
+                class="day"
+                [class.blank]="!d.date"
+                [class.festival-day]="hasFestival(d)"
+                [class.today]="isToday(d)"
+                (click)="d.date ? openDayDetails(d) : null">
+              <span *ngIf="d.date" class="date">{{ d.date }}</span>
+              <!-- Small dot for festival -->
+    <!-- <div *ngIf="hasFestival(d)" class="festival-dot"></div> -->
+              <!-- <span class="event-small" *ngIf="!d.badge">{{ d.label }}</span>
+              <span class="event-badge" *ngIf="d.badge">{{ d.label }}</span> -->
+            </div>
           </div>
         </div>
       </div>
-    </div>
+  </div>
 </ion-content>

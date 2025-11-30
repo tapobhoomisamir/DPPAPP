@@ -10,6 +10,7 @@ export class FestivalsPage {
 
   years = [2024, 2025, 2026];
   selectedYear = 2025;
+  
 
   combinedList = [
     {
