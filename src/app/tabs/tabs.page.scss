@@ -41,3 +41,14 @@ ion-label{
 ion-label.tab-button-label {
   font-size: 10px; // Adjust size
 }
+
+.lang-select {
+  // Makes the select dropdown smaller and ensures no extra padding
+  max-width: 80px;
+  --padding-start: 0;
+  font-size: 14px;
+}
+.lang-col {
+  // Adds a little space on the right edge
+  padding-right: 10px;
+}

@@ -6,10 +6,22 @@
       </ion-col>
 
       <ion-col>
-        <div class="app-title">Shree Datta Padmanabh Peeth</div>
-        <div class="subtitle">Hindu Calendar & Panchang</div>
+        <div class="app-title">{{ 'APP_TITLE' | translate }}</div>
+        <div class="subtitle">{{ 'SUB_TITLE' | translate }}</div>
       </ion-col>
-
+      
+      <ion-col size="3" class="lang-col ion-text-right">
+        <ion-select 
+          [interfaceOptions]="{ header: 'Select Language' }"
+          [value]="selectedLang" 
+          (ionChange)="switchLanguage($event)" 
+          class="lang-select"
+        >
+          <ion-select-option *ngFor="let lang of supportedLangs" [value]="lang.code">
+            {{ lang.name | uppercase }}
+          </ion-select-option>
+        </ion-select>
+      </ion-col>
       <!-- <ion-col size="4" class="premium-col">
         <ion-button class="premium-btn">
           Upgrade to Premium
@@ -47,19 +59,19 @@
 
     <ion-segment-button value="calendar" (click)="goToCalendar()" >
       <ion-icon name="calendar-outline"></ion-icon>
-      <ion-label class="tab-button-label">Calendar</ion-label>
+      <ion-label class="tab-button-label">{{ 'TABS.CALENDAR' | translate }}</ion-label>
     </ion-segment-button>
 
     <ion-segment-button value="home" (click)="goToHome()" >
       <ion-icon name="home-outline"></ion-icon>
-      <ion-label class="tab-button-label">Home</ion-label>
+      <ion-label class="tab-button-label">{{ 'TABS.HOME' | translate }}</ion-label>
     </ion-segment-button>
 
     
 
     <ion-segment-button value="festivals" (click)="goToFestivals()" >
       <ion-icon name="star-outline"></ion-icon>
-      <ion-label class="tab-button-label">Festivals</ion-label>
+      <ion-label class="tab-button-label">{{ 'TABS.FESTIVALS' | translate }}</ion-label>
     </ion-segment-button>
 
     <!-- <ion-segment-button value="premium">

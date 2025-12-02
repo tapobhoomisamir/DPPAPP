@@ -10,6 +10,7 @@ import { CalendarComponent } from '../calendar/calendar.component'; // <-- Add t
 import { DayDetailsModalComponent } from '../day-details-modal/day-details-modal.component';
 
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
     TabsPageRoutingModule,
     CalendarComponent,
     DayDetailsModalComponent,
+    TranslateModule
   ],
   declarations: [
     TabsPage
