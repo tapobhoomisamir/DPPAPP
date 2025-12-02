@@ -19,31 +19,6 @@
   </ion-toolbar>
 </ion-header>
 
-<!-- Tabs -->
-<ion-toolbar class="tabs-bar">
-  <ion-segment value="home">
-    <ion-segment-button value="home" (click)="goToHome()" >
-      <ion-icon name="home-outline"></ion-icon>
-      <ion-label>Home</ion-label>
-    </ion-segment-button>
-
-    <ion-segment-button value="calendar" (click)="goToCalendar()" >
-      <ion-icon name="calendar-outline"></ion-icon>
-      <ion-label>Calendar</ion-label>
-    </ion-segment-button>
-
-    <ion-segment-button value="festivals" (click)="goToFestivals()" >
-      <ion-icon name="star-outline"></ion-icon>
-      <ion-label>Festivals</ion-label>
-    </ion-segment-button>
-
-    <!-- <ion-segment-button value="premium">
-      <ion-icon name="crown-outline"></ion-icon>
-      <ion-label>Premium</ion-label>
-    </ion-segment-button> -->
-  </ion-segment>
-</ion-toolbar>
-
 <ion-tabs>
 
   <!-- <app-calendar></app-calendar> -->
@@ -65,3 +40,33 @@
   </ion-tab-bar> -->
 
 </ion-tabs>
+
+<!-- Tabs -->
+<ion-toolbar class="tabs-bar">
+  <ion-segment value="calendar">
+
+    <ion-segment-button value="calendar" (click)="goToCalendar()" >
+      <ion-icon name="calendar-outline"></ion-icon>
+      <ion-label class="tab-button-label">Calendar</ion-label>
+    </ion-segment-button>
+
+    <ion-segment-button value="home" (click)="goToHome()" >
+      <ion-icon name="home-outline"></ion-icon>
+      <ion-label class="tab-button-label">Home</ion-label>
+    </ion-segment-button>
+
+    
+
+    <ion-segment-button value="festivals" (click)="goToFestivals()" >
+      <ion-icon name="star-outline"></ion-icon>
+      <ion-label class="tab-button-label">Festivals</ion-label>
+    </ion-segment-button>
+
+    <!-- <ion-segment-button value="premium">
+      <ion-icon name="crown-outline"></ion-icon>
+      <ion-label>Premium</ion-label>
+    </ion-segment-button> -->
+  </ion-segment>
+</ion-toolbar>
+
+

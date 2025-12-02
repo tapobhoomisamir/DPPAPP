@@ -26,3 +26,18 @@ ion-header.header {
 .premium-btn.ion-activated {
     --background: rgb(255, 119, 0);
 }
+
+ion-label{
+  font-size: 12px;
+}
+
+.tabs-bar {
+  --background: #ffffff;
+  border-top: 1px solid #ddd;
+  // Explicitly set min-height to include the safe area buffer for problematic Android devices (OnePlus)
+  min-height: calc(56px + var(--ion-safe-area-bottom));
+}
+
+ion-label.tab-button-label {
+  font-size: 10px; // Adjust size
+}

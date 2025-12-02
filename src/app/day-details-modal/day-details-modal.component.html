@@ -10,36 +10,36 @@
   <ion-list>
     <ion-item>
       <ion-label>Date</ion-label>
-      <ion-note>{{date}} {{ month }} - {{ year }}</ion-note>
+      <ion-note class="calendar-data">{{date}} {{ month }} - {{ year }}</ion-note>
     </ion-item>
     <ion-item>
       <ion-label>Sunrise</ion-label>
-      <ion-note>{{ fullData.sunrise }}</ion-note>
+      <ion-note class="calendar-data">{{ fullData.sunrise }}</ion-note>
     </ion-item>
 
     <ion-item>
       <ion-label>Sunset</ion-label>
-      <ion-note>{{ fullData.sunset }}</ion-note>
+      <ion-note class="calendar-data">{{ fullData.sunset }}</ion-note>
     </ion-item>
 
     <ion-item>
       <ion-label>Moonrise</ion-label>
-      <ion-note>{{ fullData.moonrise }}</ion-note>
+      <ion-note class="calendar-data">{{ fullData.moonrise }}</ion-note>
     </ion-item>
 
     <ion-item>
       <ion-label>Moonset</ion-label>
-      <ion-note>{{ fullData.moonset }}</ion-note>
+      <ion-note class="calendar-data">{{ fullData.moonset }}</ion-note>
     </ion-item>
 
     <ion-item>
       <ion-label>Panchang</ion-label>
-      <ion-note>{{ fullData.panchang }}</ion-note>
+      <ion-note class="calendar-data">{{ fullData.panchang }}</ion-note>
     </ion-item>
 
     <ion-item>
       <ion-label>Day Rating</ion-label>
-      <ion-note [ngClass]="fullData.day_rating.toLowerCase()">
+      <ion-note [ngClass]="fullData.day_rating.toLowerCase()" class="calendar-data">
         {{ fullData.day_rating }}
       </ion-note>
     </ion-item>
