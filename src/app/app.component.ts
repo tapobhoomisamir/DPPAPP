@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Platform } from '@ionic/angular';
+import { NotificationService } from './services/notification-service';
 
 @Component({
   selector: 'app-root',
@@ -7,5 +9,11 @@ import { Component } from '@angular/core';
   standalone: false,
 })
 export class AppComponent {
-  constructor() {}
+  constructor(private platform: Platform, private notificationService: NotificationService) {
+    this.platform.ready().then(() => {
+      alert("Platform ready");
+      // Call the service method after the platform is ready
+      this.notificationService.initOneSignal(); 
+    });
+  }
 }
