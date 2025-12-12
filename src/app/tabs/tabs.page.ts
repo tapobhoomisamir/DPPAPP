@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core'; 
+import { LanguageService } from '../services/language-service';
 
 @Component({
   selector: 'app-tabs',
@@ -13,13 +14,14 @@ export class TabsPage {
   // 1. Define supported languages (add/remove languages as needed)
   supportedLangs = [
     { code: 'en', name: 'English' }, 
-    { code: 'hi', name: 'हिन्दी' } // Example: Hindi
+    { code: 'hi', name: 'हिन्दी' } ,
+    { code: 'ml', name: 'Malayalam' }, 
   ];
 
   // 2. Variable to track the currently selected language
   selectedLang: string;
 
-  constructor(private router: Router, private translate: TranslateService) {
+  constructor(private router: Router, private translate: TranslateService,private languageService: LanguageService) {
       this.translate.setDefaultLang('en');
       // You can set the initial language here, or get it from device/storage
       this.translate.use('en');
@@ -36,6 +38,7 @@ export class TabsPage {
   switchLanguage(event: any) {
     const lang = event.detail.value;
     this.translate.use(lang);
+    this.languageService.setLanguage(lang);
   }
 
   goToHome() {
