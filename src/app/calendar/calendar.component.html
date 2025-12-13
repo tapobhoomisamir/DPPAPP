@@ -3,7 +3,7 @@
   <div #calendarContainer> 
     <!-- Month Header -->
       <div class="month-header">
-        <h2>{{ monthNameDisplay }} {{ year }}</h2>
+        <h2>{{ monthNameDisplay }} {{ translatedYearDisplay }}</h2>
         <div class="nav-buttons">
           <ion-button fill="clear" class="arrow-btn" (click)="prevMonth()">
             <ion-icon name="chevron-back-outline"></ion-icon>
@@ -29,14 +29,54 @@
                 [class.festival-day]="hasFestival(d)"
                 [class.today]="isToday(d)"
                 (click)="d.date ? openDayDetails(d) : null">
-              <span *ngIf="d.date" class="date">{{ dateDisplay[''+d.date] }}</span>
-              <!-- Small dot for festival -->
+    
+              <span *ngIf="d.date" 
+                    class="date" 
+                    (click)="openDayDetails(d); $event.stopPropagation()">
+                    
+                    {{ dateDisplay[''+d.date] }}
+              </span>
     <!-- <div *ngIf="hasFestival(d)" class="festival-dot"></div> -->
               <!-- <span class="event-small" *ngIf="!d.badge">{{ d.label }}</span>
               <span class="event-badge" *ngIf="d.badge">{{ d.label }}</span> -->
             </div>
           </div>
         </div>
+      </div>
+
+      <div class="today-details-panel" *ngIf="todayDetails">
+        <div class="details-header">
+            <h5>{{ dateDetailsDisplay['TODAY_PANCHANG_TITLE'] }}</h5> 
+        </div>
+        <ion-list lines="full">
+            <ion-item>
+                <ion-label>{{ dateDetailsDisplay['SUNRISE'] }}</ion-label>
+                <ion-text slot="end">{{ todayDetails.sunrise || '--' }}</ion-text>
+            </ion-item>
+            <ion-item>
+                <ion-label>{{ dateDetailsDisplay['SUNSET'] }}</ion-label>
+                <ion-text slot="end">{{ todayDetails.sunset || '--' }}</ion-text>
+            </ion-item>
+            <ion-item *ngIf="todayDetails.festival">
+                <ion-label>{{ dateDetailsDisplay['FESTIVAL'] }}</ion-label>
+                <ion-text slot="end" color="danger">{{ todayDetails.festival }}</ion-text>
+            </ion-item>
+            <ion-item>
+                <ion-label>{{ dateDetailsDisplay['TITHI'] }}</ion-label>
+                <ion-text slot="end">{{ todayDetails.tithi || '--' }}</ion-text>
+            </ion-item>
+            <ion-item>
+                <ion-label>{{ dateDetailsDisplay['PANCHANG'] }}</ion-label>
+                <ion-text slot="end">{{ todayDetails.panchang || '--' }}</ion-text>
+            </ion-item>
+            <ion-item>
+                <ion-label>{{ dateDetailsDisplay['DAYRATING'] }}</ion-label>
+                <ion-text slot="end">{{ todayDetails.dayRating || '--' }}</ion-text>
+            </ion-item>
+            <ion-item>
+                <ion-label></ion-label>
+            </ion-item>
+        </ion-list>
       </div>
   </div>
 </ion-content>

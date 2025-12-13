@@ -6,6 +6,19 @@
     "CALENDAR": "Calendar",
     "FESTIVALS": "Festivals"
   },
+  "DATE_DETAILS": {
+    "DATE":"Date",
+    "FESTIVAL": "Festival",
+    "SUNRISE": "Sunrise",
+    "SUNSET": "Sunset",
+    "MOONRISE": "Moonrise",
+    "MOONSET": "Moonset",
+    "TITHI": "Tithi",
+    "NAKSHATRA": "Nakshatra",
+    "PANCHANG" : "Panchang",
+    "DAYRATING": "Day Rating",
+    "TODAY_PANCHANG_TITLE": "Today's Panchang"
+  },
   "CALENDAR":
   {
     "MONTHS": {
@@ -63,6 +76,18 @@
       "29":"29",
       "30":"30",
       "31":"31"
+    },
+    "DIGITS": {
+      "0": "0",
+      "1": "1",
+      "2": "2",
+      "3": "3",
+      "4": "4",
+      "5": "5",
+      "6": "6",
+      "7": "7",
+      "8": "8",
+      "9": "9"
     }
   }
 }

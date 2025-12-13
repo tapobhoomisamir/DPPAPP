@@ -12,44 +12,78 @@
       <ion-label>Date</ion-label>
       <ion-note class="calendar-data">{{date}} {{ month }} - {{ year }}</ion-note>
     </ion-item>
+
+    <ion-item *ngIf="fullData.festival">
+      <ion-label>{{ dateDetailsDisplay['FESTIVAL']}}</ion-label>
+      <ion-button fill="outline" (click)="openFestival(fullData.festivalId)">
+        {{ fullData.festival }}
+      </ion-button>
+    </ion-item>
+
     <ion-item>
-      <ion-label>Sunrise</ion-label>
+      <ion-label>{{ dateDetailsDisplay['SUNRISE']}}</ion-label>
       <ion-note class="calendar-data">{{ fullData.sunrise }}</ion-note>
     </ion-item>
 
     <ion-item>
-      <ion-label>Sunset</ion-label>
+      <ion-label>{{ dateDetailsDisplay['SUNSET']}}</ion-label>
       <ion-note class="calendar-data">{{ fullData.sunset }}</ion-note>
     </ion-item>
 
     <ion-item>
-      <ion-label>Moonrise</ion-label>
+      <ion-label>{{ dateDetailsDisplay['MOONRISE']}}</ion-label>
       <ion-note class="calendar-data">{{ fullData.moonrise }}</ion-note>
     </ion-item>
 
     <ion-item>
-      <ion-label>Moonset</ion-label>
+      <ion-label>{{ dateDetailsDisplay['MOONSET']}}</ion-label>
       <ion-note class="calendar-data">{{ fullData.moonset }}</ion-note>
     </ion-item>
 
     <ion-item>
-      <ion-label>Panchang</ion-label>
+      <ion-label>{{ dateDetailsDisplay['PANCHANG']}}</ion-label>
       <ion-note class="calendar-data">{{ fullData.panchang }}</ion-note>
     </ion-item>
 
     <ion-item>
-      <ion-label>Day Rating</ion-label>
+      <ion-label>{{ dateDetailsDisplay['DAYRATING']}}</ion-label>
       <ion-note [ngClass]="fullData.day_rating.toLowerCase()" class="calendar-data">
         {{ fullData.day_rating }}
       </ion-note>
     </ion-item>
 
-    <ion-item *ngIf="fullData.festival">
-      <ion-label>Festival</ion-label>
-      <ion-button fill="outline" (click)="openFestival(fullData.festivalId)">
-        {{ fullData.festival }}
-      </ion-button>
+    <ion-item>
+      <ion-label>{{ dateDetailsDisplay['SUNRISE']}}</ion-label>
+      <ion-note class="calendar-data">{{ fullData.sunrise }}</ion-note>
     </ion-item>
+
+    <ion-item>
+      <ion-label>{{ dateDetailsDisplay['SUNSET']}}</ion-label>
+      <ion-note class="calendar-data">{{ fullData.sunset }}</ion-note>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>{{ dateDetailsDisplay['MOONRISE']}}</ion-label>
+      <ion-note class="calendar-data">{{ fullData.moonrise }}</ion-note>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>{{ dateDetailsDisplay['MOONSET']}}</ion-label>
+      <ion-note class="calendar-data">{{ fullData.moonset }}</ion-note>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>{{ dateDetailsDisplay['PANCHANG']}}</ion-label>
+      <ion-note class="calendar-data">{{ fullData.panchang }}</ion-note>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>{{ dateDetailsDisplay['DAYRATING']}}</ion-label>
+      <ion-note [ngClass]="fullData.day_rating.toLowerCase()" class="calendar-data">
+        {{ fullData.day_rating }}
+      </ion-note>
+    </ion-item>
+    
 
   </ion-list>
 

@@ -35,7 +35,7 @@ export interface DayPanchang {
 export class CalendarComponent implements OnInit {
   month: number;
   year: number;
-    days: { date?: number; label?: string; badge?: boolean; highlight?: boolean }[] = [];
+  days: { date?: number; label?: string; badge?: boolean; highlight?: boolean }[] = [];
   monthNames = [
     'January', 'February', 'March', 'April', 'May', 'June',
     'July', 'August', 'September', 'October', 'November', 'December'
@@ -44,39 +44,12 @@ export class CalendarComponent implements OnInit {
   monthNameDisplay: String;
   weekName = {'SUNDAY':'Sun','MONDAY':'Mon','TUESDAY':"Tue",'WEDNESDAY':'Wed','THURSDAY':'Thu','FRIDAY':'Fri','SATURDAY':'Sat'};
 
-  dateDisplay: { [key: string]: string } = {
-      "1":"1",
-      "2":"2",
-      "3":"3",
-      "4":"4",
-      "5":"5",
-      "6":"6",
-      "7":"7",
-      "8":"8",
-      "9":"9",
-      "10":"10",
-      "11":"11",
-      "12":"12",
-      "13":"13",
-      "14":"14",
-      "15":"15",
-      "16":"16",
-      "17":"17",
-      "18":"18",
-      "19":"19",
-      "20":"20",
-      "21":"21",
-      "22":"22",
-      "23":"23",
-      "24":"24",
-      "25":"25",
-      "26":"26",
-      "27":"27",
-      "28":"28",
-      "29":"29",
-      "30":"30",
-      "31":"31"
-    };
+  translatedYearDisplay: string;
+  dateDisplay: { [key: string]: string } = {};
+  
+  todayDetails: DayPanchang | null = null;  
+  dateDetailsDisplay: { [key: string]: string } = {};
+
   // Variable to hold the current language code
   currentLangCode: string = 'en';
 
@@ -112,7 +85,9 @@ export class CalendarComponent implements OnInit {
     this.month = today.getMonth();
     this.year = today.getFullYear();
     this.generateCalendar(this.month, this.year);
-    this.monthNameDisplay = this.translate.instant("CALENDAR..MONTHS" + this.monthNames[this.month].toUpperCase());
+    this.monthNameDisplay = this.translate.instant("CALENDAR.MONTHS." + this.monthNames[this.month].toUpperCase());
+    // Initialize the translated year to the English year string
+    this.translatedYearDisplay = this.year.toString();
   }
 
   ngOnInit() {
@@ -130,9 +105,6 @@ export class CalendarComponent implements OnInit {
               // Fallback logic if needed
           }
       });
-      
-      // 2. Add your component logic here to respond to the language change
-      //this.updateCalendarContent(lang); 
       
     });
   }
@@ -159,6 +131,17 @@ export class CalendarComponent implements OnInit {
     });
 
     gesture.enable(true);
+  }
+
+  translateDigits(num: number, digitMap: { [key: string]: string }): string {
+      const numStr = num.toString();
+      let translated = '';
+      for (let i = 0; i < numStr.length; i++) {
+          const digit = numStr[i]; // '2', '0', '2', '4'
+          // Use the translated digit from the map, or the original digit if not found
+          translated += digitMap[digit] || digit; 
+      }
+      return translated;
   }
 
   updateCalendarContent(lang: string) {
@@ -204,10 +187,44 @@ export class CalendarComponent implements OnInit {
         'CALENDAR.DATE.28',
         'CALENDAR.DATE.29',
         'CALENDAR.DATE.30',
-        'CALENDAR.DATE.31'
+        'CALENDAR.DATE.31',
+        'CALENDAR.DIGITS.0',
+        'CALENDAR.DIGITS.1',
+        'CALENDAR.DIGITS.2',
+        'CALENDAR.DIGITS.3',
+        'CALENDAR.DIGITS.4',
+        'CALENDAR.DIGITS.5',
+        'CALENDAR.DIGITS.6',
+        'CALENDAR.DIGITS.7',
+        'CALENDAR.DIGITS.8',
+        'CALENDAR.DIGITS.9',
+        'DATE_DETAILS.FESTIVAL',
+        'DATE_DETAILS.SUNRISE',
+        'DATE_DETAILS.SUNSET',
+        'DATE_DETAILS.TITHI',
+        'DATE_DETAILS.NAKSHATRA',
+        'DATE_DETAILS.MOONRISE',
+        'DATE_DETAILS.MOONSET',
+        'DATE_DETAILS.PANCHANG',
+        'DATE_DETAILS.DAYRATING',
+        'DATE_DETAILS.TODAY_PANCHANG_TITLE'
         
     ];
-    
+
+    //Define all keys we need to translate (month and all week days)
+    const detailsKeys = [
+        'DATE_DETAILS.FESTIVAL',
+        'DATE_DETAILS.SUNRISE',
+        'DATE_DETAILS.SUNSET',
+        'DATE_DETAILS.TITHI',
+        'DATE_DETAILS.NAKSHATRA',
+        'DATE_DETAILS.MOONRISE',
+        'DATE_DETAILS.MOONSET',
+        'DATE_DETAILS.PANCHANG',
+        'DATE_DETAILS.DAYRATING',
+        'DATE_DETAILS.TODAY_PANCHANG_TITLE'
+    ];
+
     // 2. Use translate.get with an array of keys. It returns an Observable 
     //    that emits an object containing all translations.
     this.translate.get(keys).subscribe((res: { [key: string]: string }) => {
@@ -227,40 +244,40 @@ export class CalendarComponent implements OnInit {
             this.weekName['FRIDAY'] = res['CALENDAR.WEEK_DAYS.FRIDAY'];
             this.weekName['SATURDAY'] = res['CALENDAR.WEEK_DAYS.SATURDAY'];
 
-            this.dateDisplay['1'] = res['CALENDAR.DATE.1'];
-            this.dateDisplay['2'] = res['CALENDAR.DATE.2'];
-            this.dateDisplay['3'] = res['CALENDAR.DATE.3'];
-            this.dateDisplay['4'] = res['CALENDAR.DATE.4'];
-            this.dateDisplay['5'] = res['CALENDAR.DATE.5'];
-            this.dateDisplay['6'] = res['CALENDAR.DATE.6'];
-            this.dateDisplay['7'] = res['CALENDAR.DATE.7'];
-            this.dateDisplay['8'] = res['CALENDAR.DATE.8'];
-            this.dateDisplay['9'] = res['CALENDAR.DATE.9'];
-            this.dateDisplay['10'] = res['CALENDAR.DATE.10'];
-            this.dateDisplay['11'] = res['CALENDAR.DATE.11'];
-            this.dateDisplay['12'] = res['CALENDAR.DATE.12'];
-            this.dateDisplay['13'] = res['CALENDAR.DATE.13'];
-            this.dateDisplay['14'] = res['CALENDAR.DATE.14'];
-            this.dateDisplay['15'] = res['CALENDAR.DATE.15'];
-            this.dateDisplay['16'] = res['CALENDAR.DATE.16'];
-            this.dateDisplay['17'] = res['CALENDAR.DATE.17'];
-            this.dateDisplay['18'] = res['CALENDAR.DATE.18'];
-            this.dateDisplay['19'] = res['CALENDAR.DATE.19'];
-            this.dateDisplay['20'] = res['CALENDAR.DATE.20'];
-            this.dateDisplay['21'] = res['CALENDAR.DATE.21'];
-            this.dateDisplay['22'] = res['CALENDAR.DATE.22'];
-            this.dateDisplay['23'] = res['CALENDAR.DATE.23'];
-            this.dateDisplay['24'] = res['CALENDAR.DATE.24'];
-            this.dateDisplay['25'] = res['CALENDAR.DATE.25'];
-            this.dateDisplay['26'] = res['CALENDAR.DATE.26'];
-            this.dateDisplay['27'] = res['CALENDAR.DATE.27'];
-            this.dateDisplay['28'] = res['CALENDAR.DATE.28'];
-            this.dateDisplay['29'] = res['CALENDAR.DATE.29'];
-            this.dateDisplay['30'] = res['CALENDAR.DATE.30'];
-            this.dateDisplay['31'] = res['CALENDAR.DATE.31'];
-                          
+            // 2. Extract the digit map from the fetched translations
+            const digitMap: { [key: string]: string } = {};
+            for (let i = 0; i <= 9; i++) {
+                const key = 'CALENDAR.DIGITS.' + i;
+                digitMap[i.toString()] = res[key] || i.toString(); 
+            }
+
+            // 3. Update Translated Year Display
+            this.translatedYearDisplay = this.translateDigits(this.year, digitMap); 
+            
+            // 4. Update Date Display (Ensure this uses the fetched translations)
+            for (let i = 1; i <= 31; i++) {
+                const key = 'CALENDAR.DATE.' + i;
+                // This line is already present in your code but ensures the digit map is used
+                this.dateDisplay[i.toString()] = res[key]; 
+            }
 
             console.log('Async Translation:', this.monthNameDisplay, this.weekName);
+
+             // Update month name
+            for (let i = 0; i <= detailsKeys.length; i++) {
+                const fullKey = detailsKeys[i];
+
+                // 1. Split the key by the dot ('.')
+                const keyParts = fullKey.split('.'); 
+                
+                // 2. Get the last element of the array, which is the desired short key
+                const shortKey = keyParts[keyParts.length - 1]; 
+                // Example: 'DATE_DETAILS.FESTIVAL' -> ['DATE_DETAILS', 'FESTIVAL'] -> 'FESTIVAL'
+                
+                // Use the shortKey as the index for your dateDetailsDisplay map
+                // The value is the actual translated string (res[fullKey])
+                this.dateDetailsDisplay[shortKey] = res[fullKey] || shortKey;
+            }
 
             // 4. Force view update
             this.cdr.detectChanges(); 
@@ -302,6 +319,23 @@ export class CalendarComponent implements OnInit {
       next: (res) => {
         this.ngZone.run(() => {
           this.monthData = res;
+
+          // Check for today's date in the loaded data
+          const today = new Date();
+          
+          // Check if we are viewing the current month/year
+          if (this.month === today.getMonth() && this.year === today.getFullYear()) {
+             
+             // Find the data for today's date (dp.day is usually the date as a string)
+             const currentDayData = this.monthData.find(dp => parseInt(dp.day) === today.getDate());
+             
+             // Populate todayDetails if data is found, otherwise set to null
+             this.todayDetails = currentDayData ? currentDayData : null;
+          } else {
+             // Viewing a past/future month, hide the today panel
+             this.todayDetails = null;
+          }
+
           this.cdr.detectChanges();
         });
         //this.mediaList = res.data;

@@ -99,6 +99,7 @@
   border: 2px solid #ff5722 !important;
   background: #fff1e6 !important;
   box-shadow: 0 0 5px rgba(255, 87, 34, 0.5);
+  pointer-events: auto !important;
 }
 
 .calendar-grid{
@@ -136,4 +137,40 @@
 .festival-day.today .date {
   color: #ff3b30 !important;
   background: transparent !important;
+}
+
+.today-details-panel {
+    margin: 15px 10px 0 10px; /* Spacing below calendar grid */
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 10px 0;
+    background: var(--ion-color-light, #f8f8f8);
+    
+    // Controls the height and scrollability
+    max-height: 40vh; /* Adjust 40vh to your desired maximum height (e.g., 40% of viewport height) */
+    overflow-y: auto; 
+    
+    // Optional: Hides the scrollbar for aesthetics
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+    &::-webkit-scrollbar {
+        display: none; /* Chrome, Safari and Opera */
+    }
+}
+
+.details-header {
+    padding: 0 16px 10px;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 10px;
+    
+    h3 {
+        margin: 0;
+        font-size: 1.2rem;
+        color: rgb(255, 119, 0); /* Using your existing header color */
+    }
+    p {
+        margin: 4px 0 0 0;
+        font-size: 0.9rem;
+        color: #666;
+    }
 }

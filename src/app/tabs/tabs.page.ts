@@ -15,7 +15,7 @@ export class TabsPage {
   supportedLangs = [
     { code: 'en', name: 'English' }, 
     { code: 'hi', name: 'हिन्दी' } ,
-    { code: 'ml', name: 'Malayalam' }, 
+    { code: 'ml', name: 'Kannada' }, 
   ];
 
   // 2. Variable to track the currently selected language
