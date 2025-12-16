@@ -28,17 +28,15 @@
                 [class.blank]="!d.date"
                 [class.festival-day]="hasFestival(d)"
                 [class.today]="isToday(d)"
+                [class.pournima]="isPournima(d)"
+                [class.amavasya]="isAmavasya(d)"
                 (click)="d.date ? openDayDetails(d) : null">
-    
+
               <span *ngIf="d.date" 
                     class="date" 
                     (click)="openDayDetails(d); $event.stopPropagation()">
-                    
                     {{ dateDisplay[''+d.date] }}
               </span>
-    <!-- <div *ngIf="hasFestival(d)" class="festival-dot"></div> -->
-              <!-- <span class="event-small" *ngIf="!d.badge">{{ d.label }}</span>
-              <span class="event-badge" *ngIf="d.badge">{{ d.label }}</span> -->
             </div>
           </div>
         </div>

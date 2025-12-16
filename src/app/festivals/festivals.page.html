@@ -15,9 +15,13 @@
 
   <!-- Year Dropdown -->
   <div class="year-dropdown">
-    <ion-label>Year:</ion-label>
+    <ion-label>{{ yearLabelDisplay }}:</ion-label>
     <ion-select [(ngModel)]="selectedYear" interface="popover">
-      <ion-select-option *ngFor="let y of years" [value]="y">{{ y }}</ion-select-option>
+      <ion-select-option 
+          *ngFor="let y of yearDisplayList | keyvalue" 
+          [value]="toNumber(y.key)">
+          {{ y.value }}
+        </ion-select-option>
     </ion-select>
   </div>
 

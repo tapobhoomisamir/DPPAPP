@@ -2,6 +2,10 @@ import { Component } from '@angular/core';
 
 import { ApiService } from '../api-service';
 import { NgZone } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core'; 
+import { LanguageService } from '../services/language-service';
+
+import { ChangeDetectorRef, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-home',
@@ -9,15 +13,52 @@ import { NgZone } from '@angular/core';
   styleUrls: ['home.page.scss'],
   standalone: false,
 })
-export class HomePage {
+export class HomePage implements OnInit {
 
 
   mediaList: any[] = [];
 
-  constructor(private zone: NgZone,private api: ApiService) {}
+  constructor(private zone: NgZone,
+        private api: ApiService,
+        private cdr: ChangeDetectorRef,
+        private translate: TranslateService,
+        private languageService: LanguageService
+  ) {}
+
+  refreshPullToRefreshText: string = 'Pull to refresh';
+  refreshRefreshingText: string = 'Fetching latest updates...';
 
   ngOnInit(): void {
+
+    const keys = [
+      "TABS.HOME_REFRESH.PULL_TO_REFRESH",
+      "TABS.HOME_REFRESH.REFRESHING"
+    ];
     this.loadData();
+    this.languageService.currentLang$.subscribe(lang => {
+      this.translate.use(lang).subscribe({
+          next: () => {
+              // Now that 'use(lang)' has finished loading the file, we can proceed
+              this.translate.get(keys).subscribe((res: { [key: string]: string }) => {
+        
+                    // Update all properties safely inside the NgZone
+                    this.zone.run(() => {
+
+                      this.refreshPullToRefreshText = res["TABS.HOME_REFRESH.PULL_TO_REFRESH"] || 'Pull to refresh';
+                      this.refreshRefreshingText = res["TABS.HOME_REFRESH.REFRESHING"] || 'Fetching latest updates...';
+                      //  Force view update
+                        this.cdr.detectChanges(); 
+                      });
+                  });
+              
+          },
+          error: (err) => {
+              console.error("Error loading language file:", err);
+              // Fallback logic if needed
+          }
+      });
+      
+    });
   }
   loadData() {
     this.api.getMedias().subscribe({
@@ -31,6 +72,21 @@ export class HomePage {
         console.log(res);
       },
       error: (err) => console.error(err)
+    });
+  }
+
+  handleRefresh(event: any) {
+    this.api.getMedias().subscribe({
+      next: (res) => {
+        this.zone.run(() => {
+          this.mediaList = res; // Update the list with fresh data
+        });
+        event.target.complete(); // Stop the spinner
+      },
+      error: (err) => {
+        console.error(err);
+        event.target.complete(); // Stop the spinner even if there is an error
+      }
     });
   }
   // combinedList = [

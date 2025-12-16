@@ -281,8 +281,8 @@ export class CalendarComponent implements OnInit {
 
             // 4. Force view update
             this.cdr.detectChanges(); 
-        });
-    });
+          });
+      });
   }
 
   generateCalendar(month: number, year: number) {
@@ -339,7 +339,7 @@ export class CalendarComponent implements OnInit {
           this.cdr.detectChanges();
         });
         //this.mediaList = res.data;
-        console.log(res);
+        //console.log(res);
       },
       error: (err) => console.error(err)
     });
@@ -429,6 +429,20 @@ export class CalendarComponent implements OnInit {
       if (!day?.date) return false;
       const dayData = this.getDayData(day);
       return !!(dayData?.festival?.trim());
+    }
+
+    isPournima(day: any): boolean {
+      if (!day?.date) return false;
+      const dayData = this.getDayData(day);
+      // Adjust the string check based on your API response (e.g., 'Pournima' or 'Full Moon')
+      return dayData?.tithi?.includes('Purnima') || false; 
+    }
+
+    // Detects Amavasya (New Moon)
+    isAmavasya(day: any): boolean {
+      if (!day?.date) return false;
+      const dayData = this.getDayData(day);
+      return dayData?.tithi?.includes('Amavasya') || false;
     }
 
 }

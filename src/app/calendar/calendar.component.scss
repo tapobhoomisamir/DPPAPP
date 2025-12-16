@@ -50,6 +50,7 @@
   align-items: center;
   text-align: center;
   box-sizing: border-box;
+  z-index: 1; // Ensure container has context
 }
 
 .date {
@@ -173,4 +174,16 @@
         font-size: 0.9rem;
         color: #666;
     }
+}
+
+/* Pournima: Light Grey Border */
+.day.pournima {
+  border: 1px solid #d3d3d3 !important; /* Light Grey */
+  background: #f9f9b4; /* Keeping background  */
+}
+
+/* Amavasya: Dark Grey Border */
+.day.amavasya {
+  border: 1px solid #a6a5a5 !important; /* Dark Grey */
+  background: #e1dfdf; /* Subtle contrast */
 }

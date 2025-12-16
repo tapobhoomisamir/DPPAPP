@@ -72,3 +72,18 @@
   font-size: 15px;
   margin: 0;
 }
+
+/* Target the refresher to change the spinner and text color */
+ion-refresher {
+  // Sets the color of the spinner icon
+  --ion-text-color: rgb(255, 119, 0); 
+  
+  // Sets the color of the refreshing text ("Fetching latest updates...")
+  color: rgb(255, 119, 0); 
+  background-color: #fff;
+}
+
+/* Force the spinner color specifically if the above doesn't apply */
+ion-spinner {
+  color: rgb(255, 119, 0);
+}

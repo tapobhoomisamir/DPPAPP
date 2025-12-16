@@ -3,6 +3,37 @@ ion-header.header {
   border-bottom: 3px solid #ffd699; // light orange
 }
 
+ion-segment-button {
+  
+  // --- DEFAULT (UNSELECTED) STATE ---
+  
+  // Text color for unselected buttons
+  --color: #666; 
+  
+  // Background color for unselected buttons
+  --background: transparent; 
+  
+
+  // --- CHECKED (SELECTED) STATE ---
+  
+  // Text/icon color for the selected button (using your brand orange)
+  --color-checked: rgb(255, 119, 0); 
+  
+  // Background color for the selected button 
+  // We'll leave this transparent to only show the indicator line.
+  --background-checked: transparent; 
+}
+
+/* Target the ion-segment container to style the moving indicator bar.
+*/
+ion-segment {
+  // Color of the sliding indicator line (using your brand orange)
+  --indicator-color: rgb(255, 119, 0); 
+  
+  // Optional: Change the background of the entire segment bar
+  // --background: #fff;
+}
+
 .app-title {
   font-size: 20px;
   font-weight: bold;
@@ -52,3 +83,4 @@ ion-label.tab-button-label {
   // Adds a little space on the right edge
   padding-right: 10px;
 }
+

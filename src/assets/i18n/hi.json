@@ -1,10 +1,15 @@
 {
-  "APP_TITLE": "श्रीदत्त पद्मनाभ पीठ",
+  "APP_TITLE": "तपोभूमि",
   "SUB_TITLE": "हिंदू कैलेंडर और पंचांग",
   "TABS": {
     "HOME": "समाचार",
     "CALENDAR": "कैलेंडर",
-    "FESTIVALS": "समारोह"
+    "FESTIVALS": "समारोह",
+    "YEAR":"वर्ष",
+    "HOME_REFRESH":{
+      "PULL_TO_REFRESH": "रीफ़्रेश करने के लिए खींचें",
+      "REFRESHING": "नवीनतम अपडेट लाया जा रहा है..."
+    }
   },
   "DATE_DETAILS": {
     "DATE":"तारीख",

@@ -74,7 +74,8 @@ export class DayDetailsModalComponent implements OnInit{
         'DATE_DETAILS.MOONRISE',
         'DATE_DETAILS.MOONSET',
         'DATE_DETAILS.PANCHANG',
-        'DATE_DETAILS.DAYRATING'
+        'DATE_DETAILS.DAYRATING',
+        'DATE_DETAILS.DATE'
     ];
 
     //    that emits an object containing all translations.

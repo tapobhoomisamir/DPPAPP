@@ -4,7 +4,12 @@
     "TABS": {
         "HOME": "ഹോം",
         "CALENDAR": "കലണ്ടർ",
-        "FESTIVALS": "പെരുന്നാളുകൾ"
+        "FESTIVALS": "പെരുന്നാളുകൾ",
+        "YEAR":"Year",
+        "HOME_REFRESH":{
+            "PULL_TO_REFRESH": "Pull to refresh",
+            "REFRESHING": "Fetching latest updates..."
+        }
     },
     "DATE_DETAILS": {
         "DATE":"Date",

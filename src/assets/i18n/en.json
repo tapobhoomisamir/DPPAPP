@@ -1,10 +1,15 @@
 {
-  "APP_TITLE": "Shree Datta Padmanabh Peeth",
+  "APP_TITLE": "Tapobhoomi",
   "SUB_TITLE": "Hindu Calendar and Panchang",
   "TABS": {
     "HOME": "Home",
     "CALENDAR": "Calendar",
-    "FESTIVALS": "Festivals"
+    "FESTIVALS": "Festivals",
+    "YEAR":"Year",
+    "HOME_REFRESH":{
+      "PULL_TO_REFRESH": "Pull to refresh",
+      "REFRESHING": "Fetching latest updates..."
+    }
   },
   "DATE_DETAILS": {
     "DATE":"Date",
