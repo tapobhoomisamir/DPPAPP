@@ -264,7 +264,7 @@ export class CalendarComponent implements OnInit {
             console.log('Async Translation:', this.monthNameDisplay, this.weekName);
 
              // Update month name
-            for (let i = 0; i <= detailsKeys.length; i++) {
+            for (let i = 0; i < detailsKeys.length; i++) {
                 const fullKey = detailsKeys[i];
 
                 // 1. Split the key by the dot ('.')
@@ -313,12 +313,12 @@ export class CalendarComponent implements OnInit {
 
   loadMonthYearData(month: number, year: number) {
 
-    this.api.getMonthYearData(month + 1,year).subscribe({
+    this.api.getMonthYearData(month + 1,year,this.currentLangCode).subscribe({
 
       
       next: (res) => {
         this.ngZone.run(() => {
-          this.monthData = res;
+          this.monthData = res.data;
 
           // Check for today's date in the loaded data
           const today = new Date();

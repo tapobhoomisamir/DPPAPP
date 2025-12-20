@@ -27,6 +27,7 @@ export class HomePage implements OnInit {
 
   refreshPullToRefreshText: string = 'Pull to refresh';
   refreshRefreshingText: string = 'Fetching latest updates...';
+  currentLangCode: string = 'en';
 
   ngOnInit(): void {
 
@@ -34,8 +35,10 @@ export class HomePage implements OnInit {
       "TABS.HOME_REFRESH.PULL_TO_REFRESH",
       "TABS.HOME_REFRESH.REFRESHING"
     ];
-    this.loadData();
     this.languageService.currentLang$.subscribe(lang => {
+      this.currentLangCode = lang;
+      
+      this.loadData();
       this.translate.use(lang).subscribe({
           next: () => {
               // Now that 'use(lang)' has finished loading the file, we can proceed
@@ -61,7 +64,7 @@ export class HomePage implements OnInit {
     });
   }
   loadData() {
-    this.api.getMedias().subscribe({
+    this.api.getMedias(this.currentLangCode).subscribe({
 
       
       next: (res) => {

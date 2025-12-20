@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NgZone } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core'; 
 import { LanguageService } from '../services/language-service';
+import { ApiService } from '../api-service';
 
 import { ChangeDetectorRef, OnInit } from '@angular/core';
 
@@ -29,33 +30,33 @@ export class FestivalsPage implements OnInit{
   selectedYear: number = new Date().getFullYear();
   
 
-  combinedList = [
-    {
-      title: 'Diwali Celebration',
-      description: 'Watch our Diwali event highlights. Full details here...',
-      short: 'Festival of lights and joy.',
-      date: '2025-12-12',
-      year: 2025,
-      expanded: false
-    },
-    {
-      title: 'Holi Festival',
-      description: 'Enjoy the colors of Holi!',
-      short: 'Festival of colors.',
-      date: '2024-03-25',
-      year: 2024,
-      expanded: false
-    },
-    {
-      title: 'Ganesh Chaturthi',
-      description: 'Enjoy the colors of Holi!',
-      short: 'Ganesh chaturthi is celebrated in western india.',
-      date: '2024-04-25',
-      year: 2024,
-      expanded: false
-    }
-    // Add more items for different years
-  ];
+  // combinedList = [
+  //   {
+  //     title: 'Diwali Celebration',
+  //     description: 'Watch our Diwali event highlights. Full details here...',
+  //     short: 'Festival of lights and joy.',
+  //     date: '2025-12-12',
+  //     year: 2025,
+  //     expanded: false
+  //   },
+  //   {
+  //     title: 'Holi Festival',
+  //     description: 'Enjoy the colors of Holi!',
+  //     short: 'Festival of colors.',
+  //     date: '2024-03-25',
+  //     year: 2024,
+  //     expanded: false
+  //   },
+  //   {
+  //     title: 'Ganesh Chaturthi',
+  //     description: 'Enjoy the colors of Holi!',
+  //     short: 'Ganesh chaturthi is celebrated in western india.',
+  //     date: '2024-04-25',
+  //     year: 2024,
+  //     expanded: false
+  //   }
+  //   // Add more items for different years
+  // ];
 
    // Variable to hold the current language code
   currentLangCode: string = 'en';
@@ -132,7 +133,8 @@ export class FestivalsPage implements OnInit{
         private translate: TranslateService,
         private languageService: LanguageService,
         private cdr: ChangeDetectorRef,
-        private ngZone: NgZone
+        private ngZone: NgZone,
+        private api: ApiService,
   ) {}
 
   ngOnInit() {
@@ -201,44 +203,54 @@ rawEventData: any[] = [ /* your original data from API */ ];
    monthShortName: { [key: string]: string } = {};
 
 updateFestivalContent() {
-   this.translate.get(this.keys).subscribe((res: { [key: string]: string }) => {
-    this.ngZone.run(() => {
+    this.api.getFestivalData(this.currentLangCode).subscribe({
 
-      this.yearLabelDisplay = res['TABS.YEAR'];
-      // 1. First, update your local translation maps
-      // (This is your existing code that fills this.dateDisplay, this.weekName, etc.)
-      // Populate dateDisplay: { "1": "१", "2": "२" ... }
-      for (let i = 1; i <= 31; i++) {
-        this.dateDisplay[i.toString()] = res['CALENDAR.DATE.'+i.toString()] || 'CALENDAR.DATE.'+i.toString();
-      }
+      next: (res) => {
 
-      // Populate weekName: { "SUNDAY": "रवि" ... }
-      const days = ['SUNDAY', 'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY'];
-      days.forEach(d => this.weekName[d] = res['CALENDAR.WEEK_DAYS.'+d]);
+        this.rawEventData = res.data;
+      this.translate.get(this.keys).subscribe((res: { [key: string]: string }) => {
+        this.ngZone.run(() => {
 
-      // Populate monthShortName: { "JANUARY": "जन" ... }
-      const months = ['JANUARY', 'FEBRUARY', 'MARCH', 'APRIL', 'MAY', 'JUNE', 'JULY', 'AUGUST', 'SEPTEMBER', 'OCTOBER', 'NOVEMBER', 'DECEMBER'];
-      months.forEach(m => {
-        // Assuming your JSON has keys like "JAN_SHORT"
-        this.monthShortName[m] = res['CALENDAR.MONTHS.'+m] || res[m]; 
+          this.yearLabelDisplay = res['TABS.YEAR'];
+          // 1. First, update your local translation maps
+          // (This is your existing code that fills this.dateDisplay, this.weekName, etc.)
+          // Populate dateDisplay: { "1": "१", "2": "२" ... }
+          for (let i = 1; i <= 31; i++) {
+            this.dateDisplay[i.toString()] = res['CALENDAR.DATE.'+i.toString()] || 'CALENDAR.DATE.'+i.toString();
+          }
+
+          // Populate weekName: { "SUNDAY": "रवि" ... }
+          const days = ['SUNDAY', 'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY'];
+          days.forEach(d => this.weekName[d] = res['CALENDAR.WEEK_DAYS.'+d]);
+
+          // Populate monthShortName: { "JANUARY": "जन" ... }
+          const months = ['JANUARY', 'FEBRUARY', 'MARCH', 'APRIL', 'MAY', 'JUNE', 'JULY', 'AUGUST', 'SEPTEMBER', 'OCTOBER', 'NOVEMBER', 'DECEMBER'];
+          months.forEach(m => {
+            // Assuming your JSON has keys like "JAN_SHORT"
+            this.monthShortName[m] = res['CALENDAR.MONTHS.'+m] || res[m]; 
+          });
+
+          // 2. NOW, call transformEvents using those updated maps
+          this.transformedEvents = this.transformEvents(
+            this.rawEventData,
+            this.weekName,
+            this.monthShortName,
+            this.dateDisplay
+          );
+
+          this.cdr.detectChanges();
+        });
       });
 
-      // 2. NOW, call transformEvents using those updated maps
-      this.transformedEvents = this.transformEvents(
-        this.rawEventData,
-        this.weekName,
-        this.monthShortName,
-        this.dateDisplay
-      );
-
-      this.cdr.detectChanges();
+      },
+      error: (err) => console.error(err)
     });
-  });
+   
 }
 
 
   get filteredList() {
-    const transformedData = this.transformEvents(this.combinedList,this.weekName,this.monthShortName,this.dateDisplay);
+    const transformedData = this.transformEvents(this.rawEventData,this.weekName,this.monthShortName,this.dateDisplay);
     return transformedData.filter(item => item.year === this.selectedYear);
   }
 

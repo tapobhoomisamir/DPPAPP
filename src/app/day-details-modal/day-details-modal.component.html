@@ -51,40 +51,33 @@
         {{ fullData.day_rating }}
       </ion-note>
     </ion-item>
-
-    <ion-item>
-      <ion-label>{{ dateDetailsDisplay['SUNRISE']}}</ion-label>
-      <ion-note class="calendar-data">{{ fullData.sunrise }}</ion-note>
-    </ion-item>
-
-    <ion-item>
-      <ion-label>{{ dateDetailsDisplay['SUNSET']}}</ion-label>
-      <ion-note class="calendar-data">{{ fullData.sunset }}</ion-note>
-    </ion-item>
-
-    <ion-item>
-      <ion-label>{{ dateDetailsDisplay['MOONRISE']}}</ion-label>
-      <ion-note class="calendar-data">{{ fullData.moonrise }}</ion-note>
-    </ion-item>
-
-    <ion-item>
-      <ion-label>{{ dateDetailsDisplay['MOONSET']}}</ion-label>
-      <ion-note class="calendar-data">{{ fullData.moonset }}</ion-note>
-    </ion-item>
-
-    <ion-item>
-      <ion-label>{{ dateDetailsDisplay['PANCHANG']}}</ion-label>
-      <ion-note class="calendar-data">{{ fullData.panchang }}</ion-note>
-    </ion-item>
-
-    <ion-item>
-      <ion-label>{{ dateDetailsDisplay['DAYRATING']}}</ion-label>
-      <ion-note [ngClass]="fullData.day_rating.toLowerCase()" class="calendar-data">
-        {{ fullData.day_rating }}
-      </ion-note>
-    </ion-item>
     
 
   </ion-list>
+
+  <div *ngIf="fullData.events && fullData.events.length > 0" class="events-section">
+    <h3 class="section-title">{{ dateDetailsDisplay['EVENTS']}}</h3>
+    
+    <ion-card *ngFor="let event of fullData.events" class="event-card">
+      <img *ngIf="event.image" [src]="event.image" class="event-img" />
+      
+      <ion-card-header>
+        <ion-card-title class="event-name">{{ event.name }}</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        <p class="event-details">{{ event.details }}</p>
+        
+        <ion-button *ngIf="event.link" 
+                    fill="outline" 
+                    size="small" 
+                    (click)="openLink(event.link)"
+                    class="event-btn">
+          View Details
+          <ion-icon name="open-outline" slot="end"></ion-icon>
+        </ion-button>
+      </ion-card-content>
+    </ion-card>
+  </div>
 
 </ion-content>

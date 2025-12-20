@@ -75,7 +75,8 @@ export class DayDetailsModalComponent implements OnInit{
         'DATE_DETAILS.MOONSET',
         'DATE_DETAILS.PANCHANG',
         'DATE_DETAILS.DAYRATING',
-        'DATE_DETAILS.DATE'
+        'DATE_DETAILS.DATE',
+        'DATE_DETAILS.EVENTS'
     ];
 
     //    that emits an object containing all translations.
@@ -84,7 +85,7 @@ export class DayDetailsModalComponent implements OnInit{
         // 3. Update all properties safely inside the NgZone
         this.ngZone.run(() => {
             // Update month name
-            for (let i = 0; i <= detailsKeys.length; i++) {
+            for (let i = 0; i < detailsKeys.length; i++) {
                 const fullKey = detailsKeys[i];
 
                 // 1. Split the key by the dot ('.')
@@ -100,7 +101,7 @@ export class DayDetailsModalComponent implements OnInit{
             }
             
             // 4. Force view update
-            this.cdr.detectChanges(); 
+            this.cdr.markForCheck();
         });
     });
   }
@@ -112,5 +113,12 @@ export class DayDetailsModalComponent implements OnInit{
   openFestival(id: number) {
     this.close();
     this.router.navigate(['../festival-details', id]);
+  }
+
+  // Helper function to open external links safely
+  openLink(url: string) {
+    if (url) {
+      window.open(url, '_blank');
+    }
   }
 }

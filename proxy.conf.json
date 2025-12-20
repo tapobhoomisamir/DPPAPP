@@ -1,0 +1,8 @@
+{
+  "/calendarapi": {
+    "target": "https://tapobhoomigoa.com",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  }
+}

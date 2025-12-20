@@ -28,3 +28,46 @@
 .calendar-data {
   font-size: 0.9em; // Using relative size
 }
+
+.events-section {
+  padding: 10px;
+  
+  .section-title {
+    margin-left: 10px;
+    font-weight: bold;
+    color: #444;
+    border-bottom: 2px solid rgb(255, 119, 0);
+    display: inline-block;
+    padding-bottom: 4px;
+    margin-bottom: 15px;
+  }
+}
+
+.event-card {
+  margin: 0 0 20px 0;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+
+  .event-img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+  }
+
+  .event-name {
+    font-size: 1.1rem;
+    color: rgb(255, 119, 0);
+    font-weight: bold;
+  }
+
+  .event-details {
+    color: #666;
+    margin-bottom: 10px;
+  }
+
+  .event-btn {
+    --border-radius: 8px;
+    margin-top: 5px;
+  }
+}
