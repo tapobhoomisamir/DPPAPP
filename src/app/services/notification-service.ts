@@ -9,10 +9,10 @@ export class NotificationService {
   constructor(private platform: Platform) { }
 
   public initOneSignal(): void {
-    alert("initOneSignal");
+    //alert("initOneSignal");
     // Only attempt to initialize if running on a native device (Capacitor/Cordova)
     if (this.platform.is('capacitor') || this.platform.is('cordova')) {
-      alert("platform is capacitor or cordova : " + this.platform.platforms());
+      //alert("platform is capacitor or cordova : " + this.platform.platforms());
       // Replace with your OneSignal App ID
       OneSignal.initialize("<OneSignal App ID>"); 
 
@@ -34,7 +34,7 @@ export class NotificationService {
 
       console.log('OneSignal Initialized.');
     } else {
-      alert("platform is not capacitor and cordova : " + this.platform.platforms());
+      //alert("platform is not capacitor and cordova : " + this.platform.platforms());
       console.log('OneSignal initialization skipped on web.');
     }
   }

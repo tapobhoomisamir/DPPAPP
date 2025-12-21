@@ -21,6 +21,7 @@ export interface DayPanchang {
   panchang?: string;
   dayRating?: string;
   festival?: string;
+  moonPhase?: string;
   [key: string]: any; // optional if extra fields exist
 }
 
@@ -318,7 +319,7 @@ export class CalendarComponent implements OnInit {
       
       next: (res) => {
         this.ngZone.run(() => {
-          this.monthData = res.data;
+          this.monthData = res;
 
           // Check for today's date in the loaded data
           const today = new Date();
@@ -435,14 +436,14 @@ export class CalendarComponent implements OnInit {
       if (!day?.date) return false;
       const dayData = this.getDayData(day);
       // Adjust the string check based on your API response (e.g., 'Pournima' or 'Full Moon')
-      return dayData?.tithi?.includes('Purnima') || false; 
+      return dayData?.moonPhase?.includes('Purnima') || false; 
     }
 
     // Detects Amavasya (New Moon)
     isAmavasya(day: any): boolean {
       if (!day?.date) return false;
       const dayData = this.getDayData(day);
-      return dayData?.tithi?.includes('Amavasya') || false;
+      return dayData?.moonPhase?.includes('Amavasya') || false;
     }
 
 }

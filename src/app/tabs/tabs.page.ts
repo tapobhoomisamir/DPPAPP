@@ -14,8 +14,7 @@ export class TabsPage {
   // 1. Define supported languages (add/remove languages as needed)
   supportedLangs = [
     { code: 'en', name: 'English' }, 
-    { code: 'hi', name: 'हिन्दी' } ,
-    { code: 'ml', name: 'Kannada' }, 
+    { code: 'mr', name: 'मराठी' } ,
   ];
 
   // 2. Variable to track the currently selected language

@@ -207,7 +207,7 @@ updateFestivalContent() {
 
       next: (res) => {
 
-        this.rawEventData = res.data;
+        this.rawEventData = res;
       this.translate.get(this.keys).subscribe((res: { [key: string]: string }) => {
         this.ngZone.run(() => {
 

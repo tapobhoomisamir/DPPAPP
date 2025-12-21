@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient ,HttpHeaders} from '@angular/common/http';
-import { Observable, of } from 'rxjs';
-import { tap } from 'rxjs/operators';
-import { from } from 'rxjs';
-
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable, from, of } from 'rxjs';
+import { tap, map } from 'rxjs/operators';
 import { CapacitorHttp, HttpResponse } from '@capacitor/core';
 
 @Injectable({
@@ -16,9 +14,9 @@ export class ApiService {
   private readonly TTL = 10 * 60 * 1000;
   // Supabase API
   private supabaseUrl = 'https://ixoujsfjdjzuadnlrhhr.supabase.co/rest/v1';
-  private supabaseKey = 'sb_publishable_Jx5KetAVpAnTWeQZ6vklLg_761EOfvz';
+  private supabaseKey = '<key>';
   private tapobhoomiBaseUrl = 'https://tapobhoomigoa.com/calendarapi/api/v1';
-  private tapobhomiV1Key = '768bf677a6eaa7a94b9942d442edc1779d5e012f798e18cb1caaee4f2e7ec232';
+  private tapobhomiV1Key = '<key>';
   //private tapobhoomiBaseUrl = '/calendarapi/api/v1';
   constructor(private http: HttpClient) {}
 
@@ -40,82 +38,54 @@ private tapobhoomiApiHeaders = new HttpHeaders({
       };
 
   /**
-   * Internal helper to handle caching logic
+   * Internal helper to handle caching logic using CapacitorHttp
    */
-  private getWithCache(url: string, headers: HttpHeaders): Observable<any> {
-    const cachedEntry = this.cache.get(url);
+  private getWithCache(url: string, params: any = {}): Observable<any> {
+    // Construct a unique key based on URL and params for the cache map
+    const cacheKey = url + JSON.stringify(params);
+    const cachedEntry = this.cache.get(cacheKey);
     const now = Date.now();
 
-    // Return cached data if it exists and hasn't expired
+    // Return cached data if valid
     if (cachedEntry && now < cachedEntry.expiry) {
-      console.log(`Returning cached data for: ${url}`);
+      console.log(`Returning cached data for: ${cacheKey}`);
       return of(cachedEntry.data);
     }
 
-    // Otherwise, fetch from network and update cache
-    return this.http.get(url, { headers }).pipe(
+    // Use CapacitorHttp to bypass CORS and convert Promise to Observable
+    return from(CapacitorHttp.get({
+      url: url,
+      headers: this.tapobhooiAPIHeaderJson,
+      params: params
+    })).pipe(
+      map((response: HttpResponse) => response.data), // Extract the JSON data
       tap(data => {
-        console.log(`Updating cache for: ${url}`);
-        this.cache.set(url, { data, expiry: now + this.TTL });
+        console.log(`Updating cache for: ${cacheKey}`);
+        this.cache.set(cacheKey, { data, expiry: now + this.TTL });
       })
     );
   }
 
-
   getMedias(lang?: string): Observable<any> {
-    let url = `${this.tapobhoomiBaseUrl}/homeitem?`;
-    if (lang) url += `lang=${lang}`;
-    return this.getWithCache(url, this.tapobhoomiApiHeaders);
-  }
-  
-  // Get all day_panchang rows or filter by month/year
-  // getMonthYearData(month?: number, year?: number,lang?: string): Observable<any> {
-    
-  //   let url = `${this.tapobhoomiBaseUrl}/panchang?`;
-  //   //if (month) url += `&month=eq.${month}`;
-  //   //if (year) url += `&year=eq.${year}`;
-  //   if (month) url += `month=${month}`;
-  //   if (year) url += `&year=${year}`;
-  //   if (lang) url += `&lang=${lang}`;
-    
-  //   return this.getWithCache(url, this.tapobhoomiApiHeaders);
-  // }
-
-  getMonthYearData(month: number, year: number,lang: string): Observable<any> {
-  // Converts the Promise from Capacitor into an Observable
-    return from(CapacitorHttp.get({
-      url: `${this.tapobhoomiBaseUrl}/panchang`,
-      headers: this.tapobhooiAPIHeaderJson,
-      params: { month: month.toString(), year: year.toString(), lang: lang }
-    }));
+    const url = `${this.tapobhoomiBaseUrl}/homeitem`;
+    const params = lang ? { lang } : {};
+    return this.getWithCache(url, params);
   }
 
-//   async getMonthYearData(month: number, year: number) {
-//   const response = await CapacitorHttp.get({
-//     url: 'https://tapobhoomigoa.com/calendarapi/api/v1/panchang',
-//     params: { month: month.toString(), year: year.toString(), lang: 'en' }
-//   });
-//    console.log('Panchang Data:', response.data);
-  
-//   return response.data;
-// }
+  getMonthYearData(month: number, year: number, lang: string): Observable<any> {
+    const url = `${this.tapobhoomiBaseUrl}/panchang`;
+    const params = { 
+      month: month.toString(), 
+      year: year.toString(), 
+      lang: lang 
+    };
+    return this.getWithCache(url, params);
+  }
 
-  //  getFestivalData(lang?: string): Observable<any> {
-  //   let url = `${this.tapobhoomiBaseUrl}/festivals?`;
-  //   //if (month) url += `&month=eq.${month}`;
-  //   //if (year) url += `&year=eq.${year}`;
-  //   if (lang) url += `lang=${lang}`;
-    
-  //   return this.getWithCache(url, this.tapobhoomiApiHeaders);
-  // }
-
-  getFestivalData(lang: string): Observable<any> {
-  // Converts the Promise from Capacitor into an Observable
-    return from(CapacitorHttp.get({
-      url:  `${this.tapobhoomiBaseUrl}/festivals?`,
-      headers: this.tapobhooiAPIHeaderJson,
-      params: {  lang: lang }
-    }));
+  getFestivalData(lang?: string): Observable<any> {
+    const url = `${this.tapobhoomiBaseUrl}/festivals`;
+    const params = lang ? { lang } : {};
+    return this.getWithCache(url, params);
   }
 
 }
