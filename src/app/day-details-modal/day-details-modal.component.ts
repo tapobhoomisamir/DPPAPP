@@ -71,6 +71,7 @@ export class DayDetailsModalComponent implements OnInit{
         'DATE_DETAILS.SUNSET',
         'DATE_DETAILS.TITHI',
         'DATE_DETAILS.NAKSHATRA',
+        'DATE_DETAILS.RITU',
         'DATE_DETAILS.MOONRISE',
         'DATE_DETAILS.MOONSET',
         'DATE_DETAILS.PANCHANG',

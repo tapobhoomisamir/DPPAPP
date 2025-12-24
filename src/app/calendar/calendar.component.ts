@@ -22,6 +22,8 @@ export interface DayPanchang {
   dayRating?: string;
   festival?: string;
   moonPhase?: string;
+  nakshatra?: string;
+  ritu?: string;
   [key: string]: any; // optional if extra fields exist
 }
 
@@ -204,6 +206,7 @@ export class CalendarComponent implements OnInit {
         'DATE_DETAILS.SUNSET',
         'DATE_DETAILS.TITHI',
         'DATE_DETAILS.NAKSHATRA',
+        'DATE_DETAILS.RITU',
         'DATE_DETAILS.MOONRISE',
         'DATE_DETAILS.MOONSET',
         'DATE_DETAILS.PANCHANG',
@@ -219,6 +222,7 @@ export class CalendarComponent implements OnInit {
         'DATE_DETAILS.SUNSET',
         'DATE_DETAILS.TITHI',
         'DATE_DETAILS.NAKSHATRA',
+        'DATE_DETAILS.RITU',
         'DATE_DETAILS.MOONRISE',
         'DATE_DETAILS.MOONSET',
         'DATE_DETAILS.PANCHANG',

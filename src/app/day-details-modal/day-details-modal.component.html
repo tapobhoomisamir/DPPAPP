@@ -30,14 +30,23 @@
       <ion-note class="calendar-data">{{ fullData.sunset }}</ion-note>
     </ion-item>
 
-    <ion-item>
+    <ion-item *ngIf="fullData.moonrise">
       <ion-label>{{ dateDetailsDisplay['MOONRISE']}}</ion-label>
       <ion-note class="calendar-data">{{ fullData.moonrise }}</ion-note>
     </ion-item>
 
-    <ion-item>
+    <ion-item *ngIf="fullData.moonset">
       <ion-label>{{ dateDetailsDisplay['MOONSET']}}</ion-label>
       <ion-note class="calendar-data">{{ fullData.moonset }}</ion-note>
+    </ion-item>
+
+    <ion-item>
+        <ion-label>{{ dateDetailsDisplay['NAKSHATRA'] }}</ion-label>
+        <ion-note class="calendar-data">{{ fullData.nakshatra }}</ion-note>
+    </ion-item>
+    <ion-item>
+        <ion-label>{{ dateDetailsDisplay['RITU'] }}</ion-label>
+        <ion-note class="calendar-data">{{ fullData.ritu }}</ion-note>
     </ion-item>
 
     <ion-item>
