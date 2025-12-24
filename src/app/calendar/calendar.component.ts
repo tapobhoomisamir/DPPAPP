@@ -54,7 +54,7 @@ export class CalendarComponent implements OnInit {
   dateDetailsDisplay: { [key: string]: string } = {};
 
   // Variable to hold the current language code
-  currentLangCode: string = 'en';
+  currentLangCode: string = 'mr';
 
 
    // Event data for the month
@@ -85,8 +85,8 @@ export class CalendarComponent implements OnInit {
     private translate: TranslateService,
     private languageService: LanguageService) {
     const today = new Date();
-    this.month = today.getMonth();
-    this.year = today.getFullYear();
+    this.month = 0; // January
+    this.year = 2026;
     this.generateCalendar(this.month, this.year);
     this.monthNameDisplay = this.translate.instant("CALENDAR.MONTHS." + this.monthNames[this.month].toUpperCase());
     // Initialize the translated year to the English year string
@@ -361,25 +361,23 @@ export class CalendarComponent implements OnInit {
   }
 
   prevMonth() {
-    if (this.month === 0) {
-      this.month = 11;
-      this.year--;
-    } else {
+    // Only allow moving back if we are NOT in January
+    if (this.month > 0) {
       this.month--;
+      this.generateCalendar(this.month, this.year);
+    } else {
+      console.log('Beginning of 2026 reached');
     }
-    this.generateCalendar(this.month, this.year);
-
   }
 
   nextMonth() {
-    if (this.month === 11) {
-      this.month = 0;
-      this.year++;
-    } else {
-      this.month++;
-    }
-    
-    this.generateCalendar(this.month, this.year);
+      // Only allow moving forward if we are NOT in December
+      if (this.month < 11) {
+        this.month++;
+        this.generateCalendar(this.month, this.year);
+      } else {
+        console.log('End of 2026 reached');
+      }
   }
 
   async openDayDetails(day: any) {
@@ -390,9 +388,9 @@ export class CalendarComponent implements OnInit {
     const modal = await this.modalCtrl.create({
       component: DayDetailsModalComponent,
       componentProps: {
-        date: day.date,
-        month: this.monthNames[this.month], 
-        year: this.year,
+        date: this.dateDisplay[''+day.date] ,
+        month: this.monthNameDisplay, 
+        year: this.translatedYearDisplay,
         fullData: dayData
       },
       breakpoints: [0, 0.5, 0.9],

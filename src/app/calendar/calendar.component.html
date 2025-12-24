@@ -5,10 +5,10 @@
       <div class="month-header">
         <h2>{{ monthNameDisplay }} {{ translatedYearDisplay }}</h2>
         <div class="nav-buttons">
-          <ion-button fill="clear" class="arrow-btn" (click)="prevMonth()">
+          <ion-button fill="clear" class="arrow-btn" (click)="prevMonth()" [disabled]="month === 0">
             <ion-icon name="chevron-back-outline"></ion-icon>
           </ion-button>
-          <ion-button fill="clear" class="arrow-btn" (click)="nextMonth()">
+          <ion-button fill="clear" class="arrow-btn" (click)="nextMonth()" [disabled]="month === 11">
             <ion-icon name="chevron-forward-outline"></ion-icon>
           </ion-button>
         </div>

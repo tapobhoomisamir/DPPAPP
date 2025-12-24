@@ -27,7 +27,7 @@ export class HomePage implements OnInit {
 
   refreshPullToRefreshText: string = 'Pull to refresh';
   refreshRefreshingText: string = 'Fetching latest updates...';
-  currentLangCode: string = 'en';
+  currentLangCode: string = 'mr';
 
   ngOnInit(): void {
 

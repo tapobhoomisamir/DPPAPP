@@ -13,24 +13,26 @@ export class TabsPage {
 
   // 1. Define supported languages (add/remove languages as needed)
   supportedLangs = [
-    { code: 'en', name: 'English' }, 
     { code: 'mr', name: 'मराठी' } ,
+    { code: 'en', name: 'English' },
   ];
 
   // 2. Variable to track the currently selected language
   selectedLang: string;
 
   constructor(private router: Router, private translate: TranslateService,private languageService: LanguageService) {
-      this.translate.setDefaultLang('en');
+      this.translate.setDefaultLang('mr');
       // You can set the initial language here, or get it from device/storage
-      this.translate.use('en');
+      this.translate.use('mr');
 
       // Determine initial language based on browser/default
-      const browserLang = this.translate.getBrowserLang();
-      const initialLang = browserLang && this.supportedLangs.some(l => l.code === browserLang) ? browserLang : 'en';
+      // const browserLang = this.translate.getBrowserLang();
+      // const initialLang = browserLang && this.supportedLangs.some(l => l.code === browserLang) ? browserLang : 'mr';
+      const initialLang = 'mr';
 
       this.translate.use(initialLang);
       this.selectedLang = initialLang;
+      this.languageService.setLanguage(initialLang);
   }
 
   // 3. Method to switch language (called by the ion-select in the template)

@@ -59,7 +59,7 @@ export class FestivalsPage implements OnInit{
   // ];
 
    // Variable to hold the current language code
-  currentLangCode: string = 'en';
+  currentLangCode: string = 'mr';
 
   keys = [
         'CALENDAR.MONTHS.JANUARY',
